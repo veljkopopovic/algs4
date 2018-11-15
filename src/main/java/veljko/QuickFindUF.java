@@ -1,9 +1,9 @@
 package veljko;
 
-public class QuickFind {
+public class QuickFindUF implements UF {
   private final int[] elements;
 
-  public QuickFind (int numberOfElements) {
+  public QuickFindUF(int numberOfElements) {
     elements = new int[numberOfElements];
     this.init();
   }

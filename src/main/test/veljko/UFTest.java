@@ -1,40 +1,26 @@
 package veljko;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-public class QuickFindTest {
-  private QuickFind qf;
-  private int elements = 10;
-
-  @BeforeEach
-  private void reset() {
-    this.qf = new QuickFind(elements);
-  }
-
-  @Test
-  public void testIfElementsAreNotConnectedInitially(){
+public class UFTest {
+  public static final int ElementsCount = 10;
+  public static void testIfElementsAreNotConnectedInitially(UF qf){
     assertEquals(false, qf.connected(0,1));
     assertEquals(false, qf.connected(0,9));
   }
-  @Test
-  public void testIfElementIsConnectedToItself(){
-    for (int i = 0; i < elements; i++) {
+
+  public static void testIfElementIsConnectedToItself(UF qf){
+    for (int i = 0; i < ElementsCount; i++) {
       assertEquals(true, qf.connected(i,i));
     }
   }
 
-  @Test
-  public void testIfConnectionIsMade() {
+  public static void testIfConnectionIsMade(UF qf) {
     assertEquals(false, qf.connected(0,2));
     qf.union(0,2);
     assertEquals(true, qf.connected(0,2));
   }
 
-  @Test
-  public void testIfMergeWasMade() {
+  public static void testIfMergeWasMade(UF qf) {
     qf.union(0,2);
     qf.union(3,4);
     assertEquals(false, qf.connected(0,4));
