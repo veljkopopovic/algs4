@@ -1,19 +1,17 @@
 package veljko;
 
 public class QuickFindUF implements UF {
-  private final int[] elements;
+  private int[] elements;
 
-  public QuickFindUF(int numberOfElements) {
+  @Override
+  public void reset(int numberOfElements){
     elements = new int[numberOfElements];
-    this.init();
-  }
-
-  private void init(){
-    for (int i = 0; i < this.elements.length; i++) {
+    for (int i = 0; i < numberOfElements; i++) {
       elements[i] = i;
     }
   }
 
+  @Override
   public void union(int index1, int index2) {
     if (connected(index1, index2)) {
       //if elements already connected, nothing to be done
@@ -30,6 +28,7 @@ public class QuickFindUF implements UF {
     }
   }
 
+  @Override
   public boolean connected(int index1, int index2) {
     return elements[index1] == elements[index2];
   }

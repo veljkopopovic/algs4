@@ -1,18 +1,22 @@
 package veljko;
 
 public class QuickUnionUF implements UF {
-  private int[] elements;
-  public QuickUnionUF(int numberOfElements) {
-    elements = new int[numberOfElements];
-    init();
-  }
+  protected int[] elements;
 
-  private void init() {
+  @Override
+  public void reset(int numberOfElements) {
+    elements = new int[numberOfElements];
     for (int i = 0; i < elements.length; i++) {
-      elements[i] = i;
+      initializeElement(i);
     }
   }
 
+  protected void initializeElement(int i) {
+    elements[i] = i;
+
+  }
+
+  @Override
   public void union(int index1, int index2) {
     if (connected(index1, index2)) {
       return;
@@ -20,6 +24,7 @@ public class QuickUnionUF implements UF {
     elements[findRoot(index2)] = findRoot(index1);
   }
 
+  @Override
   public boolean connected (int index1, int index2) {
     if (index1 == index2) {
       return true;
@@ -27,13 +32,14 @@ public class QuickUnionUF implements UF {
     return findRoot(index1) == findRoot(index2);
   }
 
-  private int findRoot(int index) {
+  protected int findRoot(int index) {
     if (elements[index] == index) {
       return index;
     }
 
     int root = elements[index];
     while (elements[root] != root) {
+      elements[root] = elements[elements[root]]; //path compression
       root = elements[root];
     }
     return root;
